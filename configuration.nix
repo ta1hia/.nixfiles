@@ -8,7 +8,7 @@
   services.localtime.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  hardware.enableAllFirmware = true;
+  #hardware.enableAllFirmware = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
 
@@ -21,7 +21,7 @@
     ];
 
   networking.hostName = "lolbox"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.wifi.macAddress = "preserve";  # Or "random", "stable", "permanent", "00:11:22:33:44:55"
   networking.resolvconf.dnsExtensionMechanism = false; # Remove edns0 option in resolv.conf: Breaks some public WiFi but it is required for DNSSEC.
 
@@ -49,7 +49,7 @@
     home-manager
     alsaTools
     arandr
-    bluman
+    blueman
     dunst
     feh
     xclip

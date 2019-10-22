@@ -16,8 +16,8 @@
     i3lock
     i3status
     networkmanagerapplet
-    thunar
-    xss-lock
+    ranger
+    pcmanfm
   ];
 
   # Based on https://github.com/cdown/clipmenu/blob/develop/init/clipmenud.service

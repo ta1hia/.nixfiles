@@ -45,7 +45,6 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
   hardware.pulseaudio = {
     enable = true;
     # Need full for bluetooth support
