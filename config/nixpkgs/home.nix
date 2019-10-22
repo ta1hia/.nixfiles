@@ -16,25 +16,35 @@
     "Xft.dpi" = 140; # = 210 / 1.5, where 210 is the native DPI.
     "URxvt.font" = "xft:monospace:size=9";
     "URxvt.scrollBar" = false;
-    "*.foreground" = "#93a1a1";
-    "*.background" = "#141c21";
 
-    "*.color0" = "#263640";
-    "*.color1" = "#d12f2c";
-    "*.color2" = "#819400";
-    "*.color3" = "#b08500";
-    "*.color4" = "#2587cc";
-    "*.color5" = "#696ebf";
-    "*.color6" = "#289c93";
-    "*.color7" = "#bfbaac";
-    "*.color8" = "#4a697d";
-    "*.color9" = "#fa3935";
-    "*.color10" = "#a4bd00"; 
-    "*.color11" = "#d9a400";
-    "*.color12" = "#2ca2f5";
-    "*.color13" = "#8086e8";
-    "*.color14" = "#33c5ba";
-    "*.color15" = "#fdf6e3";
+    # terminal colours
+    "*foreground" = "#CCCCCC";
+    "*background" = "#1B1D1E";
+
+    # black darkgray
+    "*color0" = "#1B1D1E";
+    "*color8" = "#808080";
+    # darkred red
+    "*color1" = "#FF0044";
+    "*color9" = "#F92672";
+    # darkgreen green
+    "*color2" = "#82B414";
+    "*color10" = "#A6E22E";
+    # darkyellow yellow
+    "*color3" = "#FD971F";
+    "*color11" = "#E6DB74";
+    # darkblue blue
+    "*color4" = "#266C98";
+    "*color12" = "#7070F0";
+    # darkmagenta magenta
+    "*color5" = "#AC0CB1";
+    "*color13" = "#D63AE1";
+    # darkcyan cyan
+    "*color6" = "#AE81FF";
+    "*color14" = "#66D9EF";
+    # gray white
+    "*color7" = "#CCCCCC";
+    "*color15" ="#F8F8F2";
   };
 
 }
