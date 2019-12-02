@@ -3,18 +3,32 @@
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
+    gnumake
+    deluge
+    zoom-us
+    ffmpeg
+    peek
+    redshift
+
+    # Progamming
     ctags
     python3
     gcc
     go
-
   ];
+
+
+  services.redshift = {
+    enable = true;
+    provider = "geoclue2";
+  };
 
   xresources.properties = {
     "Xft.dpi" = 140; # = 210 / 1.5, where 210 is the native DPI.
-    "URxvt.font" = "xft:monospace:size=9";
+    "URxvt.font" = "xft:monospace:size=10";
     "URxvt.scrollBar" = false;
 
     # terminal colours
@@ -46,5 +60,11 @@
     "*color7" = "#CCCCCC";
     "*color15" ="#F8F8F2";
   };
+
+    # xsession.pointerCursor = {
+    # name = "Vanilla-DMZ-AA";
+    # package = pkgs.vanilla-dmz;
+    # size = 32;
+  # };
 
 }
