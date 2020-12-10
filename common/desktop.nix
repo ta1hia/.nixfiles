@@ -57,16 +57,6 @@
   services.dnsmasq.servers = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
   services.printing.enable = true; # Enable CUPS to print documents.
 
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    autorun = false;  # TODO turn on after enabling startx
-    layout = "us";
-    libinput.enable = true;
-    #displayManager.startx.enable = true;  # TODO
-    displayManager.lightdm.enable = true;
-  };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

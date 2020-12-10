@@ -5,10 +5,17 @@
     ./desktop.nix
   ];
 
+  # Enable the X11 windowing system.
   services.xserver = {
-    desktopManager.default = "none";  # We startx in our home.nix
+    enable = true;
+    layout = "us";
+    libinput.enable = true;
+
+
     windowManager.i3.enable = true;
+    displayManager.auto = { enable = true; user = "tahia";};
   };
+
 
   environment.systemPackages = with pkgs; [
     clipmenu

@@ -45,6 +45,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+  virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
     home-manager
     alsaTools
@@ -58,12 +59,16 @@
 
   users.extraUsers.tahia = {
     createHome = true;
-    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
     group = "users";
     home = "/home/tahia";
     isNormalUser = true;
     uid = 1000;
   };
+
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
