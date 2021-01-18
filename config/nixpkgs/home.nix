@@ -32,6 +32,9 @@
 
   programs.vscode = {
       extensions = with pkgs.vscode-extensions; [
+        # Projects mananged by nix-shell that need this 
+        # will need to include "rust-src" as an extension 
+        # on the rust override
         matklad.rust-analyzer
       ];
   };
