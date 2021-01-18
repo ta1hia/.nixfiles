@@ -7,7 +7,7 @@
   manual.manpages.enable = false;
 
   home.packages = with pkgs; [
-    gnumake
+    chromium
     deluge
     peek
     zoom-us
@@ -16,15 +16,25 @@
     unrar
     weechat
 
-    qpdf
     zathura
+    aseprite
+    gimp
 
-    # Progamming
+    gnumake
     ctags
     python3
     gcc
     go
+
+    rust-analyzer
+    vscode
   ];
+
+  programs.vscode = {
+      extensions = with pkgs.vscode-extensions; [
+        matklad.rust-analyzer
+      ];
+  };
 
   xsession = {
     enable = true;
@@ -57,6 +67,7 @@
     "Xft.dpi" = 140; # = 210 / 1.5, where 210 is the native DPI.
     "URxvt.font" = "xft:monospace:size=10";
     "URxvt.scrollBar" = false;
+    "urxvt.perl-ext-common" =  "default,tabbed,matcher,resize-font,-tabbed";
 
     # terminal colours
     "*foreground" = "#CCCCCC";

@@ -11,7 +11,6 @@
     layout = "us";
     libinput.enable = true;
 
-
     windowManager.i3.enable = true;
     displayManager.auto = { enable = true; user = "tahia";};
   };
