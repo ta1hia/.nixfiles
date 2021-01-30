@@ -3,6 +3,8 @@
 {
   system.copySystemConfiguration = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   # Desktop environment agnostic packages.
   environment.systemPackages = with pkgs; [
     dmidecode
@@ -71,6 +73,8 @@
   xdg.portal.enable = true; # xdg portal is used for tunneling permissions to flatpak
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
+  hardware.opengl.enable = true;
+  hardware.opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl intel-media-driver ];
   hardware.opengl.driSupport32Bit = true;
 
 }
