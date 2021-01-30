@@ -65,4 +65,12 @@
 
   programs.light.enable = true;
 
+
+  services.flatpak.enable = true;
+  services.accounts-daemon.enable = true; # Required for flatpak+xdg
+  xdg.portal.enable = true; # xdg portal is used for tunneling permissions to flatpak
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+  hardware.opengl.driSupport32Bit = true;
+
 }
