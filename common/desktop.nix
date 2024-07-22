@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  system.copySystemConfiguration = true;
-
   # Desktop environment agnostic packages.
   environment.systemPackages = with pkgs; [
     dmidecode

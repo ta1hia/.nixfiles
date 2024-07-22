@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  home.username = "tahia";   
+  home.homeDirectory = "/home/tahia";
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -25,7 +28,7 @@
     python3
     gcc
     go
-    rg
+    ripgrep
 
     rust-analyzer
     vscode
@@ -102,5 +105,7 @@
     "*color7" = "#CCCCCC";
     "*color15" ="#F8F8F2";
   };
+
+  home.stateVersion = "23.11";
 
 }
