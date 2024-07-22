@@ -9,7 +9,7 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   services.xserver.dpi = 210; # 210 is the native DPI of the HDR screen
-  fonts.fontconfig.dpi = 140; # This is Xft.dpi in .Xresources, 140 = 210 / 1.5
+  # fonts.fontconfig.dpi = 140; # This is Xft.dpi in .Xresources, 140 = 210 / 1.5
 
   services.xserver.monitorSection = ''
     DisplaySize 310 174   # In millimeters
@@ -30,11 +30,13 @@
   #  #Option "TearFree" "true"
   #'';
 
-  services.xserver.libinput = {
+  services.libinput = {
     enable = true;
-    disableWhileTyping = true;
-    accelSpeed = "0.25";
-    clickMethod = "clickfinger";
+    touchpad = {
+      disableWhileTyping = true;
+      accelSpeed = "0.25";
+      clickMethod = "clickfinger";
+    };
   };
 
   services.tlp.enable = true;

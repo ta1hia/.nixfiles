@@ -5,7 +5,8 @@
 { config, pkgs, ... }:
 
 {
-  services.localtime.enable = true;
+  # services.localtime.enable = true;
+  services.automatic-timezoned.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   #hardware.enableAllFirmware = true;
@@ -57,6 +58,8 @@
     xsel
   ];
 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   users.extraUsers.tahia = {
     createHome = true;
     extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
@@ -66,9 +69,14 @@
     uid = 1000;
   };
 
-
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = true;
+
+  ## temp for kubectl example
+  networking.extraHosts =
+  ''
+    172.17.255.2 alpaca.example.com bandicoot.example.com
+  '';
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

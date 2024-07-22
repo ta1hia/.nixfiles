@@ -8,11 +8,13 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    layout = "us";
-    libinput.enable = true;
-
+    xkb.layout = "us";
     windowManager.i3.enable = true;
-    displayManager.auto = { enable = true; user = "tahia";};
+  };
+  services.libinput.enable = true;
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "tahia";
   };
 
 
@@ -25,6 +27,7 @@
     ranger
     pcmanfm
   ];
+
 
   # Based on https://github.com/cdown/clipmenu/blob/develop/init/clipmenud.service
   #services.clipmenu.enable = true;

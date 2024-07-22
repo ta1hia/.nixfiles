@@ -3,8 +3,6 @@
 {
   system.copySystemConfiguration = true;
 
-  nixpkgs.config.allowUnfree = true;
-
   # Desktop environment agnostic packages.
   environment.systemPackages = with pkgs; [
     dmidecode
@@ -23,19 +21,19 @@
     # Wireless
     bluez
     iw # wireless tooling
+     
   ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     hermit
     source-code-pro
     terminus_font
   ];
 
   # Select internationalisation properties.
-  i18n = {
-    consoleFont = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+    keyMap = "us";
   };
 
   networking.networkmanager.enable = true;
@@ -46,17 +44,15 @@
   # Or disable the firewall altogether.
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    # Need full for bluetooth support
-    package = pkgs.pulseaudioFull;
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
-  };
+  #sound.enable = true;
+  #hardware.pulseaudio = {
+  #  enable = true;
+  #  # Need full for bluetooth support
+  #  package = pkgs.pulseaudioFull;
+  #  # extraModules = [ pkgs.pulseaudio-modules-bt ];
+  #};
 
   # Services to enable:
-  services.dnsmasq.enable = true;
-  services.dnsmasq.servers = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
   services.printing.enable = true; # Enable CUPS to print documents.
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -66,15 +62,24 @@
   # services.openssh.enable = true; # Enable the OpenSSH daemon.
 
   programs.light.enable = true;
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      { keys = [ 64 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
+      { keys = [ 63 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
+    ];
+  };
 
 
+  nixpkgs.config.allowUnfree = true;
   services.flatpak.enable = true;
   services.accounts-daemon.enable = true; # Required for flatpak+xdg
   xdg.portal.enable = true; # xdg portal is used for tunneling permissions to flatpak
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl intel-media-driver ];
-  hardware.opengl.driSupport32Bit = true;
+  #programs.steam.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+  hardware.graphics.enable32Bit = true;
+  hardware.graphics.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl intel-media-driver ];
 
 }

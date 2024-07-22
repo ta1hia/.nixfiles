@@ -25,6 +25,7 @@
     python3
     gcc
     go
+    rg
 
     rust-analyzer
     vscode
