@@ -4,6 +4,9 @@
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true; # Might help wifi?
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
+
   services.xserver.dpi = 210; # 210 is the native DPI of the HDR screen
 
   services.xserver.monitorSection = ''

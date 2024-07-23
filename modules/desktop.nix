@@ -2,7 +2,16 @@
 
 {
   # Desktop environment agnostic packages.
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
+    alsaTools
+    arandr
+    blueman
+    dunst
+    feh
+    xclip
+    xsel
+
     dmidecode
     firefox
     git
@@ -33,6 +42,9 @@
     font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     keyMap = "us";
   };
+
+  # Set your time zone.
+  services.automatic-timezoned.enable = true;
 
   networking.networkmanager.enable = true;
   # Open ports in the firewall.

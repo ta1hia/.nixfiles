@@ -1,9 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [
-    ./desktop.nix
-  ];
 
   # Enable the X11 windowing system.
   services.xserver = {
