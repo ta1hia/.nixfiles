@@ -9,18 +9,22 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations.lolbox = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
 
-        home-manager.nixosModules.home-manager 
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.tahia = import ./home.nix;
-        }
-      ];
+    nixosConfigurations = {
+      lolbox = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        
+        modules = [
+          ./hosts/lolbox
+
+          home-manager.nixosModules.home-manager 
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.tahia = import ./home.nix;
+          }
+        ];
+      };
     };
 
   };

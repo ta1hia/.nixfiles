@@ -16,9 +16,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./hardware/thinkpad-x1c.nix
-      ./common/boot.nix
-      ./common/desktop-i3.nix
+      ../../hardware/thinkpad-x1c.nix
+      ../../common/boot.nix
+      ../../common/desktop-i3.nix
     ];
 
   networking.hostName = "lolbox"; # Define your hostname.
