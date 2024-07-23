@@ -14,7 +14,6 @@
     user = "tahia";
   };
 
-
   environment.systemPackages = with pkgs; [
     clipmenu
     clipnotify
@@ -27,7 +26,6 @@
 
 
   # Based on https://github.com/cdown/clipmenu/blob/develop/init/clipmenud.service
-  #services.clipmenu.enable = true;
   systemd.user.services.clipmenud = {
     enable = true;
     description = "Clipmenu daemon";

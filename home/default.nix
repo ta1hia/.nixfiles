@@ -7,7 +7,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
-  manual.manpages.enable = false;
 
   home.packages = with pkgs; [
     chromium
@@ -42,22 +41,6 @@
         matklad.rust-analyzer
       ];
   };
-
-  xsession = {
-    enable = true;
-    windowManager.command = "dbus-launch --exit-with-x11 i3";
-
-    pointerCursor = {
-      name = "Vanilla-DMZ-AA";
-      package = pkgs.vanilla-dmz;
-      size = 32;
-    };
-  };
-
-  home.file.".xinitrc".text = ''
-    # Delegate to xsession config
-    . ~/.xsession
-  '';
 
   services.redshift = {
     enable = true;

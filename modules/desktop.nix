@@ -2,7 +2,6 @@
 
 {
   # Desktop environment agnostic packages.
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     alsaTools
     arandr
