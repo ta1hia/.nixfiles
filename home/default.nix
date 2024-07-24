@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./i3
+  ];
+
   home.username = "tahia";   
   home.homeDirectory = "/home/tahia";
 
@@ -19,8 +23,6 @@
     weechat
 
     zathura
-    aseprite
-    gimp
 
     gnumake
     ctags
@@ -90,5 +92,4 @@
   };
 
   home.stateVersion = "23.11";
-
 }

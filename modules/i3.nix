@@ -1,14 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
-
-  # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
     xkb.layout = "us";
     windowManager.i3.enable = true;
   };
-  services.libinput.enable = true;
+
   services.displayManager.autoLogin = {
     enable = true;
     user = "tahia";
@@ -17,6 +15,7 @@
   environment.systemPackages = with pkgs; [
     clipmenu
     clipnotify
+    feh                     # wallpaper
     i3lock
     i3status
     networkmanagerapplet
