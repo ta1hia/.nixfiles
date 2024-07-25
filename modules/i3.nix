@@ -10,12 +10,13 @@
       extraPackages = with pkgs; [
         clipmenu
         clipnotify
-        dmenu-rs
+        dmenu-rs                # dmenu app launcher
         feh                     # wallpaper
         i3lock                  # lock screen
-        i3status
-        networkmanagerapplet
+        i3status                # basic i3bar customization
+        networkmanagerapplet    # network tray applet
         ranger                  # term file manager
+        volctl                  # volume tray applet
         xss-lock                # lock screen
       ];
     };
