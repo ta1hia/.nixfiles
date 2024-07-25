@@ -70,6 +70,7 @@
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
   # services.openssh.enable = true; # Enable the OpenSSH daemon.
 
+  # Brightness control
   programs.light.enable = true;
   services.actkbd = {
     enable = true;
@@ -78,7 +79,6 @@
       { keys = [ 63 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
     ];
   };
-
 
   nixpkgs.config.allowUnfree = true;
   services.flatpak.enable = true;

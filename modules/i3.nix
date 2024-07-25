@@ -21,6 +21,7 @@
     networkmanagerapplet
     ranger
     pcmanfm
+    xss-lock
   ];
 
 
