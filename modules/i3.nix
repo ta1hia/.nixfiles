@@ -4,7 +4,21 @@
   services.xserver = {
     enable = true;
     xkb.layout = "us";
-    windowManager.i3.enable = true;
+
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        clipmenu
+        clipnotify
+        dmenu-rs
+        feh                     # wallpaper
+        i3lock                  # lock screen
+        i3status
+        networkmanagerapplet
+        ranger                  # term file manager
+        xss-lock                # lock screen
+      ];
+    };
   };
 
   services.displayManager.autoLogin = {
@@ -12,18 +26,10 @@
     user = "tahia";
   };
 
-  environment.systemPackages = with pkgs; [
-    clipmenu
-    clipnotify
-    feh                     # wallpaper
-    i3lock
-    i3status
-    networkmanagerapplet
-    ranger
-    pcmanfm
-    xss-lock
+  programs.thunar.plugins = with pkgs.xfce; [
+    thunar-archive-plugin
+    thunar-volman
   ];
-
 
   # Based on https://github.com/cdown/clipmenu/blob/develop/init/clipmenud.service
   systemd.user.services.clipmenud = {

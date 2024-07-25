@@ -22,6 +22,7 @@
     rxvt_unicode
     vim
     unzip
+    xfce.thunar
     wget
     
     # Wireless
