@@ -6,8 +6,8 @@
     alsaTools
     arandr
     blueman
+    pulseaudio
     dunst
-    feh
     xclip
     xsel
 
@@ -54,13 +54,13 @@
   # Or disable the firewall altogether.
 
   # Enable sound.
-  #sound.enable = true;
-  #hardware.pulseaudio = {
-  #  enable = true;
-  #  # Need full for bluetooth support
-  #  package = pkgs.pulseaudioFull;
-  #  # extraModules = [ pkgs.pulseaudio-modules-bt ];
-  #};
+  hardware.pulseaudio = {
+    enable = true;
+    support32Bit = true;
+    # Need full for bluetooth support
+    package = pkgs.pulseaudioFull;
+    # extraModules = [ pkgs.pulseaudio-modules-bt ];
+  };
 
   # Services to enable:
   services.printing.enable = true; # Enable CUPS to print documents.
@@ -88,7 +88,6 @@
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   #programs.steam.enable = true;
-  hardware.pulseaudio.support32Bit = true;
   hardware.graphics.enable32Bit = true;
   hardware.graphics.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl intel-media-driver ];
 
