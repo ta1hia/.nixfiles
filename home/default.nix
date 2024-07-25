@@ -3,6 +3,7 @@
 {
   imports = [
     ./i3
+    ./redshift.nix
   ];
 
   home.username = "tahia";   
@@ -16,10 +17,10 @@
     chromium
     deluge
     peek
-    zoom-us
     redshift
     vlc
     unrar
+    zoom-us
     weechat
 
     zathura
@@ -42,17 +43,6 @@
         # on the rust override
         matklad.rust-analyzer
       ];
-  };
-
-  services.redshift = {
-    enable = true;
-    provider = "geoclue2";
-  };
-
-  services.random-background = {
-    enable = true;
-    imageDirectory = "%h/.wallpapers";
-    interval = "1h";
   };
 
   xresources.properties = {

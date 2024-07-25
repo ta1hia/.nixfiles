@@ -5,7 +5,6 @@
   environment.systemPackages = with pkgs; [
     arandr
     blueman
-    lm_sensors
     pavucontrol
     pulseaudio
     dunst
