@@ -3,9 +3,9 @@
 {
   # Desktop environment agnostic packages.
   environment.systemPackages = with pkgs; [
-    alsaTools
     arandr
     blueman
+    pavucontrol
     pulseaudio
     dunst
     xclip
@@ -54,12 +54,12 @@
   # Or disable the firewall altogether.
 
   # Enable sound.
-  hardware.pulseaudio = {
+  security.rtkit.enable = true;
+  services.pipewire = {
     enable = true;
-    support32Bit = true;
-    # Need full for bluetooth support
-    package = pkgs.pulseaudioFull;
-    # extraModules = [ pkgs.pulseaudio-modules-bt ];
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   # Services to enable:
