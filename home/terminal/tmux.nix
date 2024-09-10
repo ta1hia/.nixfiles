@@ -17,6 +17,11 @@ set -g pane-active-border-style 'bg=colour0 fg=colour245'
 # statusbar
 set -g status-position bottom
 set -g status-style 'bg=colour235 fg=colour28 dim'
+
+# broadcast command
+bind a setw synchronize-panes
+setw -g window-status-current-format '#{?pane_synchronized,#[bg=red],}#I:#W'
+setw -g window-status-format         '#{?pane_synchronized,#[bg=red],}#I:#W'
     ''; 
   };
 }
