@@ -20,7 +20,7 @@
     mkpasswd
     tmux
     tree
-    rxvt_unicode
+    rxvt-unicode-unwrapped
     vim
     unzip
     xfce.thunar

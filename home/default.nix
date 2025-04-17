@@ -33,6 +33,7 @@
     go
     ripgrep
 
+    processing
     rust-analyzer
     vscode
   ];
