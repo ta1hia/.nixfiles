@@ -13,7 +13,7 @@
     DisplaySize 310 174   # In millimeters
   '';
 
-  services.xserver.videoDrivers = [ "intel" ];
+  services.xserver.videoDrivers = [ "modesetting" ];
   #services.xserver.deviceSection = ''
   #  Option "Backlight" "intel_backlight"  # Maybe unnecessary?
 
