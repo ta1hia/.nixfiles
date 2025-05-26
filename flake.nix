@@ -7,8 +7,9 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    ngipkgs.url = "github:ngi-nix/ngipkgs";
-    ngipkgs.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -24,6 +25,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.users.tahia = import ./home;
           }
         ];

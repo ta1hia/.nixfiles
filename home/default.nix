@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
     ./i3
+    ./nixvim
     ./terminal
     ./redshift.nix
   ];
