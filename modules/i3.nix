@@ -27,6 +27,8 @@
     user = "tahia";
   };
 
+  programs.i3lock.enable = true;
+
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin
     thunar-volman
