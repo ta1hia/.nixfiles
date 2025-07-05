@@ -3,8 +3,10 @@
 {
   imports = [
     ./i3
-    ./nixvim
+    #./nixvim
     ./terminal
+
+    ./neovim.nix
     ./redshift.nix
   ];
 
