@@ -4,6 +4,6 @@
 {
   sops = {
     age.keyFile = "/home/tahia/.config/sops/age/keys.txt";
-    defaultSopsFile = ../secrets.yaml;
+    defaultSopsFile = ../../secrets.yaml;
   };
 }
