@@ -10,9 +10,11 @@
     [ 
       ./hardware-configuration.nix
       ./thinkpad-x1c.nix
+      ./sops.nix
 
-      ../../modules/desktop.nix
-      ../../modules/i3.nix
+      ../../system/desktop.nix
+      ../../system/i3.nix
+      ../../system/mounts/nas-1.nix
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;

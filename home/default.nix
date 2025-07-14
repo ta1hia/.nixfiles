@@ -8,6 +8,7 @@
 
     ./neovim.nix
     ./redshift.nix
+
   ];
 
   home.username = "tahia";   
