@@ -82,11 +82,11 @@
     ];
   };
 
-  nixpkgs.config.allowUnfree = true;
   services.flatpak.enable = true;
   services.accounts-daemon.enable = true; # Required for flatpak+xdg
   xdg.portal.enable = true; # xdg portal is used for tunneling permissions to flatpak
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.config.common.default = "gtk";
 
   #programs.steam.enable = true;
   hardware.graphics.enable32Bit = true;

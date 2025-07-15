@@ -3,7 +3,6 @@
 {
   imports = [
     ./i3
-    #./nixvim
     ./terminal
 
     ./neovim.nix
@@ -16,7 +15,6 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
     chromium
@@ -28,6 +26,7 @@
     zoom-us
     weechat
 
+    obsidian
     zathura
 
     gnumake
@@ -41,15 +40,6 @@
     rust-analyzer
     vscode
   ];
-
-  programs.vscode = {
-      extensions = with pkgs.vscode-extensions; [
-        # Projects mananged by nix-shell that need this 
-        # will need to include "rust-src" as an extension 
-        # on the rust override
-        matklad.rust-analyzer
-      ];
-  };
 
   home.stateVersion = "24.05";
 }
