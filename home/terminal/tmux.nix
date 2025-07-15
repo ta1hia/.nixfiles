@@ -22,6 +22,8 @@ set -g status-style 'bg=colour235 fg=colour28 dim'
 bind a setw synchronize-panes
 setw -g window-status-current-format '#{?pane_synchronized,#[bg=red],}#I:#W'
 setw -g window-status-format         '#{?pane_synchronized,#[bg=red],}#I:#W'
+
+set -g default-terminal "tmux-256color"
     ''; 
   };
 }

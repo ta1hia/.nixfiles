@@ -6,7 +6,8 @@
     "Xft.dpi" = 140; # = 210 / 1.5, where 210 is the native DPI.
     "URxvt.font" = "xft:monospace:size=10";
     "URxvt.scrollBar" = false;
-    "urxvt.perl-ext-common" =  "default,tabbed,matcher,resize-font,-tabbed";
+    "URxvt.dynamicColors" = false;
+    "urxvt.perl-ext-common" =  "default,-tabbed,matcher,resize-font";
 
     "*geometry" = "80x240+0+0";  # https://github.com/NixOS/nixpkgs/issues/241646
 
