@@ -19,7 +19,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
-  boot.loader-systemd-boot.configurationLimit = 20;
+  boot.loader.systemd-boot.configurationLimit = 20;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # LUKS

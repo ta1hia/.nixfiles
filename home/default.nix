@@ -3,11 +3,10 @@
 {
   imports = [
     ./i3
+    ./neovim
     ./terminal
 
-    ./neovim.nix
     ./redshift.nix
-
   ];
 
   home.username = "tahia";   
