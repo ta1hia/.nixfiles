@@ -6,6 +6,7 @@
     ./neovim
     ./terminal
 
+    ./obsidian.nix
     ./redshift.nix
   ];
 
