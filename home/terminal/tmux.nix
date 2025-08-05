@@ -16,8 +16,8 @@
 # used for less common options, intelligently combines if defined in multiple places.
 
 # panes
-set -g pane-border-style 'fg=colour240 bg=colour0'
-set -g pane-active-border-style 'bg=colour0 fg=colour245'
+set -g pane-border-style 'fg=colour240'
+set -g pane-active-border-style 'fg=colour245'
 set -g pane-base-index 1
 
 # statusbar
