@@ -11,5 +11,4 @@
   };
 
   xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
-  xdg.configFile."kitty/current-theme.conf".source = ./current-theme.conf;
 }
