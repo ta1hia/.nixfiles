@@ -3,15 +3,15 @@
 {
   imports = [
     ./i3
-    ./neovim
     ./terminal
 
     ./darkman.nix
+    ./nixvim.nix
     ./obsidian.nix
     ./redshift.nix
   ];
 
-  home.username = "tahia";   
+  home.username = "tahia";
   home.homeDirectory = "/home/tahia";
 
   # Let Home Manager install and manage itself.
