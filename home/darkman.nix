@@ -4,7 +4,7 @@
   services.darkman = {
     enable = true;
     settings = {
-      usegeoclue = true; 
+      usegeoclue = true;
       dbusserver = true;
       portal = true;
     };

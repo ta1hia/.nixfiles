@@ -23,7 +23,7 @@ set -g pane-base-index 1
 # statusbar
 set -g status-position bottom
 set -g status-justify centre
-set -g status-style 'bg=colour235 fg=colour28 dim'
+set -g status-style 'fg=colour28 dim'
 setw -g monitor-activity on
 setw -g window-status-activity-style 'fg=colour160'
 set -g visual-activity on

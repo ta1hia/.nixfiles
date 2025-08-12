@@ -10,14 +10,14 @@
       extraPackages = with pkgs; [
         clipmenu
         clipnotify
-        dmenu-rs                # dmenu app launcher
-        feh                     # wallpaper
-        i3lock                  # lock screen
-        i3status                # basic i3bar customization
-        networkmanagerapplet    # network tray applet
-        ranger                  # term file manager
-        volctl                  # volume tray applet
-        xss-lock                # lock screen
+        dmenu-rs # dmenu app launcher
+        feh # wallpaper
+        i3lock # lock screen
+        i3status # basic i3bar customization
+        networkmanagerapplet # network tray applet
+        ranger # term file manager
+        volctl # volume tray applet
+        xss-lock # lock screen
       ];
     };
   };
@@ -38,7 +38,7 @@
   systemd.user.services.clipmenud = {
     enable = true;
     description = "Clipmenu daemon";
-    serviceConfig =  {
+    serviceConfig = {
       Type = "simple";
       NoNewPrivileges = true;
       ProtectControlGroups = true;

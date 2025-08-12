@@ -25,11 +25,11 @@
     unzip
     xfce.thunar
     wget
-    
+
     # Wireless
     bluez
     iw # wireless tooling
-     
+
   ];
 
   fonts.packages = with pkgs; [
