@@ -7,6 +7,7 @@
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
+    globals.mapleader = ",";
 
     extraConfigVim = ''
       " use my term's colours
@@ -20,6 +21,9 @@
       " use smart indenting
       set autoindent
       set smartindent
+
+      " needed for obsidian plugin
+      set conceallevel=1
     '';
 
     extraPackages = with pkgs; [
@@ -44,9 +48,11 @@
     plugins.lsp = {
       enable = true;
       servers = {
-        pyright.enable = true; # python
+        bashls.enable = true; # bash
         gopls.enable = true; # go
+        marksman.enable = true; # markdown
         nixd.enable = true; # nix
+        pyright.enable = true; # python
         ts_ls.enable = true; # js/typescript
 
         rust_analyzer = {
@@ -59,6 +65,7 @@
     };
 
     # completion plugin
+    plugins.cmp-nvim-lsp.enable = true;
     plugins.cmp = {
       enable = true;
       autoEnableSources = true;
@@ -77,20 +84,75 @@
       };
     };
 
-    plugins.cmp-nvim-lsp.enable = true;
+
+    # https://nix-community.github.io/nixvim/plugins/obsidian/index.html
+    plugins.obsidian = {
+      enable = true;
+      settings = {
+        ui = {
+          enable = true;
+        };
+
+        workspaces = [
+          {
+            name = "notes";
+            path = "~/docs/notes";
+          }
+        ];
+
+        note_path_func = ''
+          function(spec)
+            local path = spec.dir / tostring(spec.title)
+            return path:with_suffix(".md")
+          end
+        '';
+
+        follow_url_func = ''
+          function(url)
+            -- Open the URL in the default web browser.
+            vim.fn.jobstart({"xdg-open", url})  -- linux
+          end
+        '';
+
+      };
+    };
+
+    # fuzzy-finder
+    plugins.telescope = {
+      enable = true;
+    };
+    plugins.web-devicons.enable = true;
 
     keymaps = [
       {
         mode = "n";
         key = "=";
         action = "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<cr>";
-        options = { silent = true; };
+        options = { desc = "format (via conform) in normal mode"; };
       }
       {
         mode = "v";
         key = "=";
         action = "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<cr>";
-        options = { silent = true; };
+        options = { desc = "format (via conform) in visual mode"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>ff";
+        action = "<cmd>Telescope find_files<cr>";
+        options = { desc = "find files"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fg";
+        action = "<cmd>Telescope live_grep<cr>";
+        options = { desc = "live grep"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fk";
+        action = "<cmd>Telescope keymaps<cr>";
+        options = { desc = "find keymaps"; };
       }
     ];
 
