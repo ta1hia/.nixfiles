@@ -192,3 +192,7 @@ bar {
 
 # firefox
 bindsym $mod+i exec --no-startup-id firefox
+
+# brightness control (F5/F5 with FnLock off)
+bindsym XF86MonBrightnessUp exec "light -A 10"
+bindsym XF86MonBrightnessDown exec "light -U 10"
