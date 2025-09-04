@@ -58,10 +58,28 @@
       servers = {
         bashls.enable = true; # bash
         gopls.enable = true; # go
-        marksman.enable = true; # markdown
         nixd.enable = true; # nix
         pyright.enable = true; # python
         ts_ls.enable = true; # js/typescript
+
+        marksman = {
+          enable = true;
+          onAttach.override = true;
+          onAttach.function = ''
+            print("Marksman onAttach running!")
+            -- Override diagnostics handler for Marksman to suppress a specific error
+            local og_handler = vim.lsp.handlers["textDocument/publishDiagnostics"]
+
+            vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+              if result then
+                result.diagnostics = vim.tbl_filter(function(d)
+                  return not d.message:match("Link to non%-existant document")
+                end, result.diagnostics or {})
+              end
+              og_handler(err, result, ctx, cfg)
+            end
+          '';
+        };
 
         rust_analyzer = {
           # rust
