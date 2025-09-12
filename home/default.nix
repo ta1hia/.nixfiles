@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -40,6 +40,12 @@
     processing
     rust-analyzer
     vscode
+
+    # dummy rust test
+    rustc
+    cargo
+    rustfmt
+
   ];
 
   home.stateVersion = "24.05";
