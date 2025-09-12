@@ -4,6 +4,7 @@
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
+
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -34,7 +35,11 @@
       hi Visual ctermfg=NONE ctermbg=1
     '';
 
+    extraLuaPackages = luaPkgs: [ luaPkgs.magick ];
+
     extraPackages = with pkgs; [
+      imagemagick
+      mermaid-cli
       nixpkgs-fmt
     ];
 
@@ -63,19 +68,24 @@
         ts_ls.enable = true; # js/typescript
 
         marksman = {
+          # markdown
           enable = true;
           onAttach.override = true;
           onAttach.function = ''
-            print("Marksman onAttach running!")
-            -- Override diagnostics handler for Marksman to suppress a specific error
-            local og_handler = vim.lsp.handlers["textDocument/publishDiagnostics"]
-
-            vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-              if result then
-                result.diagnostics = vim.tbl_filter(function(d)
-                  return not d.message:match("Link to non%-existant document")
-                end, result.diagnostics or {})
+            -- Supress specific marksman errors
+            -- TODO this only works after I run :e once
+            local ignore_patterns = { "Link to non%-existant document" }
+            local keep = function(d)
+              for _, pat in ipairs(ignore_patterns) do 
+                if d.message:find(pat) then return false end
               end
+              return true
+            end
+
+            -- Wrap future diagnostics
+            local og_handler = vim.lsp.handlers["textDocument/publishDiagnostics"] 
+            vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+              if result then result.diagnostics = vim.tbl_filter(keep, result.diagnostics or {}) end
               og_handler(err, result, ctx, cfg)
             end
           '';
@@ -108,6 +118,31 @@
         "<Tab>" = "cmp.mapping.select_next_item()"; # select next item on tab
         "<S-Tab>" = "cmp.mapping.select_prev_item()"; # select previous item on shift+tab
         "<CR>" = "cmp.mapping.confirm({ select = true })"; # accept selected completion on enter
+      };
+    };
+
+    # diagrams dependency
+    plugins.image = {
+      enable = true;
+    };
+
+    # for diagrams in notes
+    plugins.diagram = {
+      enable = true;
+      settings = {
+        integrations = [
+          {
+            __raw = "require('diagram.integrations.markdown')";
+          }
+        ];
+        renderer_options = {
+          mermaid = {
+            background = "transparent";
+            theme = "neutral";
+            scale = 2;
+            cli_args = "--no-sandbox";
+          };
+        };
       };
     };
 
@@ -201,11 +236,10 @@
       }
       {
         mode = "n";
-        key = "<leader>e";
-        action = "<cmd>lua vim.diagnostic.open_float()<cr>";
-        options = { desc = "show full diagnostic text on an annotated line"; };
+        key = "<leader>ee";
+        action = "<cmd>lua vim.cmd('e')<cr>";
+        options = { desc = "unfortunate obsidian.nvim backlink error suppression hack"; };
       }
     ];
-
   };
 }
