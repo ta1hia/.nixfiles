@@ -37,7 +37,6 @@
     gcc
     go
     ripgrep
-    nodejs_20
 
     processing
     rust-analyzer

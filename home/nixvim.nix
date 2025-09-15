@@ -46,7 +46,12 @@
     extraPackages = with pkgs; [
       imagemagick
       mermaid-cli
+      nodejs_20
+
+      # formatters, lang servers
       nixpkgs-fmt
+      nodePackages.prettier
+      nodePackages."@tailwindcss/language-server"
     ];
 
     plugins.copilot-vim = {
@@ -69,6 +74,13 @@
         };
         formatters_by_ft = {
           nix = [ "nixpkgs_fmt" ];
+          go = [ "gofmt" "goimports" ];
+          javascript = [ "prettier" ];
+          javascriptreact = [ "prettier" ];
+          html = [ "prettier" ];
+          css = [ "prettier" ];
+          markdown = [ "prettier" ];
+          rust = [ "rustfmt" ];
         };
       };
     };
@@ -82,6 +94,11 @@
         nixd.enable = true; # nix
         pyright.enable = true; # python
         ts_ls.enable = true; # js/typescript
+
+        html.enable = true;
+        cssls.enable = true;
+        jsonls.enable = true;
+        tailwindcss.enable = true;
 
         marksman = {
           # markdown
@@ -113,11 +130,12 @@
           installRustc = true;
           installCargo = true;
         };
-
       };
     };
 
     # completion plugin
+    plugins.nvim-autopairs.enable = true;
+    plugins.ts-autotag.enable = true;
     plugins.cmp-nvim-lsp.enable = true;
     plugins.cmp = {
       enable = true;
@@ -217,6 +235,12 @@
     plugins.telescope = {
       enable = true;
     };
+
+    plugins.treesitter = {
+      enable = true;
+      settings.auto_install = true;
+    };
+
     plugins.web-devicons.enable = true;
 
     keymaps = [
