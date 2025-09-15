@@ -17,6 +17,7 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+
   home.packages = with pkgs; [
     chromium
     deluge
@@ -36,6 +37,7 @@
     gcc
     go
     ripgrep
+    nodejs_20
 
     processing
     rust-analyzer

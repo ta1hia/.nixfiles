@@ -4,9 +4,15 @@
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
-
   programs.nixvim = {
     enable = true;
+
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+      };
+    };
+
     defaultEditor = true;
 
     globals.mapleader = ",";
@@ -42,6 +48,16 @@
       mermaid-cli
       nixpkgs-fmt
     ];
+
+    plugins.copilot-vim = {
+      enable = true;
+      settings = {
+        filetypes = {
+          "*" = false;
+          javascript = true;
+        };
+      };
+    };
 
     # auto-formatting based on the formatters i specify
     plugins.conform-nvim = {
