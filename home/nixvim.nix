@@ -137,22 +137,32 @@
     plugins.nvim-autopairs.enable = true;
     plugins.ts-autotag.enable = true;
     plugins.cmp-nvim-lsp.enable = true;
+    plugins.cmp_luasnip.enable = true;
+    plugins.friendly-snippets.enable = true;
+    plugins.luasnip = {
+      enable = true;
+      fromVscode = [
+        { }
+      ];
+    };
     plugins.cmp = {
       enable = true;
       autoEnableSources = true;
+      settings = {
+        sources = [
+          { name = "nvim_lsp"; }
+          { name = "path"; }
+          { name = "buffer"; }
+          { name = "luasnip"; }
+        ];
 
-      settings.sources = [
-        { name = "nvim_lsp"; }
-        { name = "path"; }
-        { name = "buffer"; }
-        { name = "luasnip"; }
-      ];
-
-      settings.mapping = {
-        "<Tab>" = "cmp.mapping.select_next_item()"; # select next item on tab
-        "<S-Tab>" = "cmp.mapping.select_prev_item()"; # select previous item on shift+tab
-        "<CR>" = "cmp.mapping.confirm({ select = true })"; # accept selected completion on enter
+        mapping = {
+          "<Tab>" = "cmp.mapping.select_next_item()"; # select next item on tab
+          "<S-Tab>" = "cmp.mapping.select_prev_item()"; # select previous item on shift+tab
+          "<CR>" = "cmp.mapping.confirm({ select = true })"; # accept selected completion on enter
+        };
       };
+
     };
 
     # diagrams dependency
