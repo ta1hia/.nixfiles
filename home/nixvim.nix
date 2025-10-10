@@ -39,6 +39,9 @@
 
       " highlight for visual selection
       hi Visual ctermfg=NONE ctermbg=1
+
+      " misc
+      " set number
     '';
 
     extraLuaPackages = luaPkgs: [ luaPkgs.magick ];
@@ -268,7 +271,7 @@
       }
       {
         mode = "n";
-        key = "<leader>ff";
+        key = "<leader>f";
         action = "<cmd>Telescope find_files<cr>";
         options = { desc = "find files"; };
       }
