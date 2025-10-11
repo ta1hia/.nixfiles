@@ -2,20 +2,13 @@
 
 {
   imports = [
+    ../common
+
     ./i3
-    ./terminal
 
     ./darkman.nix
-    ./nixvim.nix
-    ./obsidian.nix
     ./redshift.nix
   ];
-
-  home.username = "tahia";
-  home.homeDirectory = "/home/tahia";
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
     chromium
@@ -45,8 +38,5 @@
     rustc
     cargo
     rustfmt
-
   ];
-
-  home.stateVersion = "24.05";
 }

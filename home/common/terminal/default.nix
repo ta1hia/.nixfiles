@@ -2,6 +2,6 @@
   imports = [
     ./kitty
     ./tmux.nix
-    ./urxvt.nix
+    #./urxvt.nix
   ];
 }
