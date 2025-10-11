@@ -7,7 +7,7 @@
 {
 
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       ./thinkpad-x1c.nix
       ./sops.nix
@@ -27,11 +27,11 @@
     root = { device = "/dev/nvme0n1p2"; allowDiscards = true; preLVM = true; };
   };
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  networking.hostName = "lolbox"; 
+  networking.hostName = "lolbox";
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.macAddress = "preserve";  
+  networking.networkmanager.wifi.macAddress = "preserve";
   networking.resolvconf.dnsExtensionMechanism = false; # Remove edns0 option in resolv.conf: Breaks some public WiFi but it is required for DNSSEC.
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -45,14 +45,18 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  users.extraUsers.tahia = {
+  users.users.tahia = {
     createHome = true;
-    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
     group = "users";
     home = "/home/tahia";
     isNormalUser = true;
     uid = 1000;
+    shell = pkgs.zsh;
   };
+
+  # TODO 
+  programs.zsh.enable = true;
 
   # TODO move
   virtualisation.docker.enable = true;

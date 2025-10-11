@@ -39,4 +39,6 @@
     cargo
     rustfmt
   ];
+
+  services.xsettingsd.enable = true;
 }

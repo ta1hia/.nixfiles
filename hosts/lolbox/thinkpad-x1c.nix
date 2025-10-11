@@ -7,7 +7,13 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
 
-  services.xserver.dpi = 210; # 210 is the native DPI of the HDR screen
+  services.xserver = {
+    dpi = 210;
+    displayManager.sessionCommands = ''
+      xrandr --output eDP-1 --scale 1.5x1.5
+    '';
+  };
+
 
   services.xserver.monitorSection = ''
     DisplaySize 310 174   # In millimeters
