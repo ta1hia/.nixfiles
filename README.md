@@ -6,36 +6,35 @@ Extended tahia vs. nix journey documented [here](https://computers.lol/posts/202
 
 ## Features
 
-- Multi-Platform Support: A single `flake.nix` file manages configurations for both nixos and nix-darwin.
+- **multi-platform support**: a single `flake.nix` file manages configurations for both nixos and nix-darwin
 
-- Declarative Configuration: All system packages, dotfiles, and user settings are managed declaratively using Nix.
+- **declarative configuration**: all system packages, dotfiles, and user settings are managed declaratively using Nix
 
-- Shared Home-Manager Modules: Common settings and packages like nixvim, zsh, and tmux are shared between hosts through the home/common directory.
+- **shared home-manager modules**: common settings and packages like nixvim, zsh, and tmux are shared between hosts through the home/common directory
 
-- Host-Specific Overrides: Each machine has its own directory (hosts/lolbox and hosts/pz-macbook) for hardware-specific settings and system services.
+- **host-specific overrides**: each machine has its own directory under `hosts` for hardware-specific settings and system services
 
-- Secrets Management: Secrets are managed using sops-nix to securely handle sensitive data like network credentials.
+- **secrets management**: secrets are managed using sops-nix
 
 ## How to Deploy
 
 ### First-Time Setup (NixOS)
 
-Clone this repository to `/home/tahia/.nixfiles`.
+Clone this repository to `~/.nixfiles`. Then:
 
-Run `nixos-rebuild switch --flake .#lolbox`.
+```
+sudo nixos-rebuild switch --flake .#lolbox
+```
 
 ## First-Time Setup (macOS)
 
-Install [Determinate Nix](https://docs.determinate.systems/determinate-nix/) on your machine.
+Install [Determinate Nix](https://docs.determinate.systems/determinate-nix/) and clone this repo to `~/.nixfiles`.
 
-Clone this repository to `~/.nixfiles`.
-
-Run the following command to build and activate the nix-darwin system profile. The sudo command is necessary for system-level changes.
+Run the following command to build and activate the nix-darwin system profile and fix directory permissions from using sudo. sudo is necessary for system-level changes.
 
 ```
 sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake .#pz-macbook
 sudo chown -R tahia:staff /Users/tahia/.local
-
 ```
 
 Once the command finishes, `darwin-rebuild` will be available in your shell.
@@ -44,8 +43,8 @@ Once the command finishes, `darwin-rebuild` will be available in your shell.
 
 After the initial setup, you can update your configurations with the following commands.
 
-NixOS: `nixos-rebuild switch --flake .#lolbox`
+NixOS: `sudo nixos-rebuild switch --flake .#lolbox`
 
 darwin: `sudo darwin-rebuild switch --flake .#pz-macbook`
 
-This builds a new system generation and creates a symlink to it, including the activation step for home-manager.
+This builds a new system generation and creates a symlink to it, including the activation step for home-manager since it's configured as a module.
