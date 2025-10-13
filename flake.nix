@@ -18,20 +18,12 @@
   };
 
   outputs = { self, nixpkgs, nix-darwin, home-manager, nixvim, sops-nix, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    in
     {
       nixosConfigurations = {
         lolbox = nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            { nixpkgs.pkgs = pkgs; }
             sops-nix.nixosModules.sops
             ./hosts/lolbox
 
