@@ -10,11 +10,14 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     sops-nix.url = "github:mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nix-darwin, home-manager, nixvim, sops-nix, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -42,5 +45,17 @@
           ];
         };
       };
+
+      darwinConfigurations = {
+        pz-macbook = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs; };
+          module = [
+            ./hosts/pz-macbook
+
+          ];
+        };
+      };
     };
 }
+
