@@ -13,11 +13,13 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
     sops-nix.url = "github:mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, nixvim, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, nixvim, sops-nix, ... }@inputs:
     {
       nixosConfigurations = {
         lolbox = nixpkgs.lib.nixosSystem {
@@ -45,6 +47,7 @@
           modules = [
             ./hosts/pz-macbook
 
+            nix-homebrew.darwinModules.nix-homebrew
             home-manager.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

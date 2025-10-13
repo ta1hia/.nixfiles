@@ -14,7 +14,7 @@
       mkdir = "mkdir -pv";
       rm = "rm -i";
       ll = "ls -AlFh";
-      ls = "ls -lhg --color=always --group-directories-first";
+      ls = "ls -lhg --color=always";
       l = "LC_COLLATE=C ls -C";
       la = "ls -A";
 
@@ -25,7 +25,10 @@
 
     initContent = ''
       bindkey '^R' history-incremental-search-backward
+
       export PS1="%F{yellow}%B%n %F{magenta}%1~ %b%f$ "
+
+      eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
   };
 
