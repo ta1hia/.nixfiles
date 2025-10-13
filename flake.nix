@@ -42,7 +42,7 @@
         pz-macbook = nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = { inherit inputs; };
-          module = [
+          modules = [
             ./hosts/pz-macbook
 
           ];
