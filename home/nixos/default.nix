@@ -8,7 +8,11 @@
 
     ./darkman.nix
     ./redshift.nix
+    ./obsidian.nix
   ];
+
+  home.username = "tahia";
+  home.homeDirectory = "/home/tahia";
 
   home.packages = with pkgs; [
     chromium

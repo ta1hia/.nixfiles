@@ -6,19 +6,15 @@
     ./terminal
 
     ./nixvim.nix
-    ./obsidian.nix
   ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  home.username = "tahia";
-  home.homeDirectory = "/home/tahia";
 
   home.packages = with pkgs; [
     jq
-
-    tmux
+    tree
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

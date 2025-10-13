@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Simple flake-based nixfiles for multi-host/multi-platform setup with home-manager configured as a module";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -45,6 +45,13 @@
           modules = [
             ./hosts/pz-macbook
 
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.tahia = import ./home/darwin;
+            }
           ];
         };
       };
