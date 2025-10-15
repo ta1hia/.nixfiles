@@ -17,9 +17,12 @@
 
     sops-nix.url = "github:mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    system-manager.url = "github:numtide/system-manager";
+    system-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, nixvim, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, nixvim, sops-nix, system-manager, ... }@inputs:
     {
       nixosConfigurations = {
         lolbox = nixpkgs.lib.nixosSystem {
@@ -58,6 +61,25 @@
           ];
         };
       };
+
+      systemConfigs.devbox = system-manager.lib.makeSystemConfig {
+        modules = [
+          ./hosts/devbox
+          # home-manager.nixosModules.home-manager
+          # {
+          #   home-manager.extraSpecialArgs = { inherit inputs; };
+          #   home-manager.users.tahia = {
+          #     home.username = "tahia";
+          #     home.homeDirectory = "/home/tahia";
+          #     home.stateVersion = "24.05";
+          #     imports = [
+          #       ./home/common
+          #     ];
+          #   };
+          # }
+        ];
+      };
+
     };
 }
 
