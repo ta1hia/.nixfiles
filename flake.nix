@@ -17,9 +17,12 @@
 
     sops-nix.url = "github:mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    system-manager.url = "github:numtide/system-manager";
+    system-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, nixvim, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, nixvim, sops-nix, system-manager, ... }@inputs:
     {
       nixosConfigurations = {
         lolbox = nixpkgs.lib.nixosSystem {
@@ -64,6 +67,13 @@
         extraSpecialArgs = { inherit inputs; };
         modules = [
           ./home/ubuntu
+        ];
+      };
+
+      # TODO combine system-manager and hm. I was having trouble with this earlier
+      systemConfigs.devbox = system-manager.lib.makeSystemConfig {
+        modules = [
+          ./hosts/devbox
         ];
       };
 
