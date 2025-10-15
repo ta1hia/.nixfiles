@@ -21,6 +21,7 @@
       # git aliases
       gs = "git status";
       gc = "git commit";
+      gd = "git diff";
     };
 
     initContent = ''

@@ -14,6 +14,7 @@
 
   home.packages = with pkgs; [
     jq
+    ripgrep
     tree
   ];
 

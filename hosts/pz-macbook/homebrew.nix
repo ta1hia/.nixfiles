@@ -6,7 +6,7 @@
 
     taps = [ ];
     brews = [ "cowsay" ];
-    casks = [ "firefox" "obsidian" ];
+    casks = [ "firefox" "obsidian" "nikitabobko/tap/aerospace" "spotify" ];
 
   };
 }
