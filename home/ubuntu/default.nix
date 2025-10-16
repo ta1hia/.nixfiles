@@ -14,6 +14,9 @@
     go
     kubernetes
     ripgrep
+
+    nodejs_22
+    yarn
   ];
 
   programs.gh = {
