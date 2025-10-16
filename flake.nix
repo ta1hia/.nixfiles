@@ -65,21 +65,15 @@
       systemConfigs.devbox = system-manager.lib.makeSystemConfig {
         modules = [
           ./hosts/devbox
-          # home-manager.nixosModules.home-manager
-          # {
-          #   home-manager.extraSpecialArgs = { inherit inputs; };
-          #   home-manager.users.tahia = {
-          #     home.username = "tahia";
-          #     home.homeDirectory = "/home/tahia";
-          #     home.stateVersion = "24.05";
-          #     imports = [
-          #       ./home/common
-          #     ];
-          #   };
-          # }
+
+          # TODO: add tahia user and home-manager
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.tahia = import ./home/ubuntu;
+          }
         ];
       };
-
     };
 }
 
