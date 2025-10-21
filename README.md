@@ -39,6 +39,15 @@ sudo chown -R tahia:staff /Users/tahia/.local
 
 Once the command finishes, `darwin-rebuild` will be available in your shell.
 
+## First-Time Setup (ubuntu with standalone home-manager)
+
+```
+curl -L https://nixos.org/nix/install | sh -s -- --daemon
+nix-shell -p nix-info --run "nix-info -m"
+echo "experimental-features = nix-command flakes\nbuild-users-group = nixbld" | sudo tee -a /etc/nix/nix.conf
+nix --extra-experimental-features "nix-command flakes" run home-manager -- switch --flake ~/.nixfiles#pz-ubuntu
+```
+
 ### Updating Your Configuration
 
 After the initial setup, you can update your configurations with the following commands.
@@ -46,5 +55,7 @@ After the initial setup, you can update your configurations with the following c
 NixOS: `sudo nixos-rebuild switch --flake .#lolbox`
 
 darwin: `sudo darwin-rebuild switch --flake .#pz-macbook`
+
+ubuntu: `home-manager switch --flake ~/.nixfiles#pz-ubuntu`
 
 This builds a new system generation and creates a symlink to it, including the activation step for home-manager since it's configured as a module.
