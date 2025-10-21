@@ -1,8 +1,13 @@
 keys:
   - &users:
     - &tahia age12rwdy797mlesxnggawgqsvgq95xy0cexukx6pg6xaejv7w6rhdqq2w8c5x
+  - &pz-ubuntu age1neyfdc28ua426p2kc8lhfclvulx0kvepteynzgucskcdyh388udqa9ryku
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
     - age:
       - *tahia
+  - path_regex: home/ubuntu/secrets.yaml$
+    key_groups:
+    - age:
+      - *pz-ubuntu
