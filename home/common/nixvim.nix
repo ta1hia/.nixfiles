@@ -47,39 +47,45 @@
     extraConfigLua = ''
       local function fugitive_commit_and_push()
         if vim.fn.finddir('.git', '.;') ~= "" and vim.bo.buftype == "" then
+          local filename = vim.fn.expand('%:t')
           vim.cmd.Git('add -u')
-          -- vim.cmd.Git('commit -m "notes auto push"')
-          vim.cmd.Git('commit -m "' .. vim.fn.expand('%:t') .. '"')
+          vim.cmd.Git('commit -m "auto push notes in ' .. filename .. '"')
           vim.cmd.Git('push')
         end
       end
-
-      local function fugitive_pull_on_open()
-        if vim.fn.finddir('.git', '.;') ~= "" and vim.bo.buftype == "" then
+      
+      local function fugitive_pull_check()
+        local target_path = vim.fn.resolve(vim.fn.expand('~/docs/notes'))
+        local current_dir = vim.fn.resolve(vim.fn.getcwd()) 
+        if current_dir == target_path and vim.fn.finddir('.git', '.;') ~= "" then
           vim.cmd.Git('pull --ff-only')
-          vim.notify("Git pull started via FUGITIVE.", vim.log.levels.INFO, {title = 'Git Auto Sync'})
         end
       end
-
+      
       local augroup = vim.api.nvim_create_augroup('GitAutoSync', { clear = true })
       local pattern = '*/docs/notes/**'
-
+      
+      vim.api.nvim_create_autocmd({ 'VimEnter' }, {  
+        group = augroup,
+        pattern = '*',
+        callback = fugitive_pull_check, -- Corrected to use the unified pull function
+        desc = 'auto git pull on neovim startup if in target dir'
+      })
+      
+      vim.api.nvim_create_autocmd({ 'DirChanged' }, {
+        group = augroup,
+        pattern = '*', 
+        callback = fugitive_pull_check, -- Corrected to use the unified pull function
+        desc = 'auto git pull on entering the notes dir'
+      })
+      
       vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
         group = augroup,
         pattern = pattern,
         callback = fugitive_commit_and_push,
-        desc = 'Auto git commit & push on file save in notes repo'
-      })
-
-      vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
-        group = augroup,
-        pattern = pattern,
-        callback = fugitive_pull_on_open,
-        desc = 'Auto git pull on file open in target repo'
+        desc = 'auto git commit & push on file save in notes dir'
       })
     '';
-
-    plugins.fugitive.enable = true;
 
     extraLuaPackages = luaPkgs: [ luaPkgs.magick ];
 
@@ -124,6 +130,8 @@
         };
       };
     };
+
+    plugins.fugitive.enable = true;
 
     # language servers
     plugins.lsp = {
