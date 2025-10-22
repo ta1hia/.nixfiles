@@ -44,6 +44,43 @@
       " set number
     '';
 
+    extraConfigLua = ''
+      local function fugitive_commit_and_push()
+        if vim.fn.finddir('.git', '.;') ~= "" and vim.bo.buftype == "" then
+          vim.cmd.Git('add -u')
+          -- vim.cmd.Git('commit -m "notes auto push"')
+          vim.cmd.Git('commit -m "' .. vim.fn.expand('%:t') .. '"')
+          vim.cmd.Git('push')
+        end
+      end
+
+      local function fugitive_pull_on_open()
+        if vim.fn.finddir('.git', '.;') ~= "" and vim.bo.buftype == "" then
+          vim.cmd.Git('pull --ff-only')
+          vim.notify("Git pull started via FUGITIVE.", vim.log.levels.INFO, {title = 'Git Auto Sync'})
+        end
+      end
+
+      local augroup = vim.api.nvim_create_augroup('GitAutoSync', { clear = true })
+      local pattern = '*/docs/notes/**'
+
+      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        group = augroup,
+        pattern = pattern,
+        callback = fugitive_commit_and_push,
+        desc = 'Auto git commit & push on file save in notes repo'
+      })
+
+      vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
+        group = augroup,
+        pattern = pattern,
+        callback = fugitive_pull_on_open,
+        desc = 'Auto git pull on file open in target repo'
+      })
+    '';
+
+    plugins.fugitive.enable = true;
+
     extraLuaPackages = luaPkgs: [ luaPkgs.magick ];
 
     extraPackages = with pkgs; [
@@ -112,17 +149,17 @@
             -- TODO this only works after I run :e once
             local ignore_patterns = { "Link to non%-existant document" }
             local keep = function(d)
-              for _, pat in ipairs(ignore_patterns) do 
-                if d.message:find(pat) then return false end
-              end
-              return true
+            for _, pat in ipairs(ignore_patterns) do
+            if d.message:find(pat) then return false end
+            end
+            return true
             end
 
             -- Wrap future diagnostics
-            local og_handler = vim.lsp.handlers["textDocument/publishDiagnostics"] 
+            local og_handler = vim.lsp.handlers["textDocument/publishDiagnostics"]
             vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-              if result then result.diagnostics = vim.tbl_filter(keep, result.diagnostics or {}) end
-              og_handler(err, result, ctx, cfg)
+            if result then result.diagnostics = vim.tbl_filter(keep, result.diagnostics or {}) end
+            og_handler(err, result, ctx, cfg)
             end
           '';
         };
@@ -246,3 +283,4 @@
     ];
   };
 }
+
