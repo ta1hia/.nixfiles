@@ -101,6 +101,8 @@
       nixpkgs-fmt
       nodePackages.prettier
       nodePackages."@tailwindcss/language-server"
+      gotools
+      rustfmt
     ];
 
     plugins.copilot-vim = {
@@ -304,6 +306,30 @@
         key = "<leader>ee";
         action = "<cmd>lua vim.cmd('e')<cr>";
         options = { desc = "unfortunate obsidian.nvim backlink error suppression hack"; };
+      }
+      {
+        mode = "n";
+        key = "gr";
+        action = "<cmd>Telescope lsp_references<cr>";
+        options = { desc = "find references"; };
+      }
+      {
+        mode = "n";
+        key = "gd";
+        action = "<cmd>Telescope lsp_definitions<cr>";
+        options = { desc = "go to definition"; };
+      }
+      {
+        mode = "n";
+        key = "gD";
+        action = "<cmd>lua vim.lsp.buf.declaration()<cr>";
+        options = { desc = "go to declaration"; };
+      }
+      {
+        mode = "n";
+        key = "K";
+        action = "<cmd>lua vim.lsp.buf.hover()<cr>";
+        options = { desc = "show documentation"; };
       }
     ];
   };
