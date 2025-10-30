@@ -10,13 +10,15 @@
 
     # You can add aliases, functions, and shell options here.
     shellAliases = {
-      v = "nvim";
+      v = "nvim -p";
       mkdir = "mkdir -pv";
       rm = "rm -i";
       ll = "ls -AlFh";
       ls = "ls -lhg --color=always";
       l = "LC_COLLATE=C ls -C";
       la = "ls -A";
+      notes = "cd ~/docs/notes && v";
+      nixfiles = "cd ~/.nixfiles";
 
       # git aliases
       gs = "git status";

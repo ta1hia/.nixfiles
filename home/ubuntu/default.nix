@@ -16,6 +16,10 @@
     ripgrep
   ];
 
+  programs.gh = {
+    enable = true;
+  };
+
   programs.zsh = {
     initContent = ''
       bindkey -e
@@ -25,11 +29,12 @@
 
     shellAliases = {
       k = "kubectl";
+      pz = "cd ~/pz";
     };
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "kubectl" "zsh-autosuggestions" ];
+      plugins = [ "git" "kubectl" ];
     };
   };
 

@@ -242,6 +242,20 @@
     # fuzzy-finder
     plugins.telescope = {
       enable = true;
+
+      settings = {
+        defaults = {
+          file_ignore_patterns = [
+            "^.git/"
+          ];
+        };
+
+        pickers = {
+          find_files = {
+            hidden = true;
+          };
+        };
+      };
     };
 
     plugins.treesitter = {
