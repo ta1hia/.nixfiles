@@ -15,7 +15,9 @@
 
     defaultEditor = true;
 
-    globals.mapleader = ",";
+    globals = {
+      mapleader = ",";
+    };
 
     diagnostic.settings = {
       virtual_text = true;
@@ -40,8 +42,9 @@
       " highlight for visual selection
       hi Visual ctermfg=NONE ctermbg=1
 
-      " misc
-      " set number
+      " line number
+      set number
+      highlight LineNr ctermfg=240 guifg=#666666
     '';
 
     extraConfigLua = ''
