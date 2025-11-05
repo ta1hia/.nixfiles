@@ -13,6 +13,7 @@
     sensibleOnTop = false;
 
     extraConfig = ''
+    
       # used for less common options, intelligently combines if defined in multiple places.
 
       # panes
@@ -25,6 +26,7 @@
       set -g status-justify centre
       set -g status-style 'fg=colour28 dim'
       setw -g monitor-activity on
+      setw -g window-status-current-style 'fg=colour240'
       setw -g window-status-activity-style 'fg=colour160'
       set -g visual-activity on
 
