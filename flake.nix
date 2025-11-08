@@ -22,7 +22,17 @@
     system-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, nixvim, sops-nix, system-manager, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nix-darwin
+    , home-manager
+    , nix-homebrew
+    , nixvim
+    , sops-nix
+    , system-manager
+    , ...
+    }@inputs:
     {
       nixosConfigurations = {
         lolbox = nixpkgs.lib.nixosSystem {

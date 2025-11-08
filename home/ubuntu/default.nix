@@ -3,6 +3,7 @@
 {
   imports = [
     ../common
+
     inputs.sops-nix.homeManagerModules.sops
   ];
 
@@ -18,6 +19,10 @@
     nodejs_22
     yarn
   ];
+
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
   programs.gh = {
     enable = true;

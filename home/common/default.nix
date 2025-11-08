@@ -6,6 +6,7 @@
     ./terminal
 
     ./nixvim.nix
+    ./obsidian.nix
   ];
 
   # Let Home Manager install and manage itself.
