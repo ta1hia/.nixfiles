@@ -24,6 +24,7 @@
       gs = "git status";
       gc = "git commit";
       gd = "git diff";
+      gl = "git log";
     };
 
     initContent = ''

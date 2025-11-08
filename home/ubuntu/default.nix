@@ -39,11 +39,6 @@
       enable = true;
       plugins = [ "git" "kubectl" ];
     };
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "kubectl" "zsh-autosuggestions" ];
-    };
   };
 
   sops = {
