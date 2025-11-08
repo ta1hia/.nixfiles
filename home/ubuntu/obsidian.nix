@@ -1,24 +1,24 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
-  imports = [
-    inputs.obsidian-nix.homeManagerModules.obsidian
+
+  home.packages = [
+    pkgs.obsidian
   ];
 
   programs.obsidian = {
     enable = true;
-    useFHS = true;
   };
 
   # This adds the .desktop file for your application launcher
-  # xdg.enable = true;
-  # xdg.desktopEntries.obsidian = {
-  #   name = "Obsidian";
-  #   exec = "obsidian";
-  #   icon = "obsidian";
-  #   type = "Application";
-  #   categories = [ "Office" "TextEditor" ];
-  # };
+  xdg.enable = true;
+  xdg.desktopEntries.obsidian = {
+    name = "Obsidian";
+    exec = "obsidian";
+    icon = "obsidian";
+    type = "Application";
+    categories = [ "Office" "TextEditor" ];
+  };
 
   programs.nixvim = {
     # obsidian.vim
@@ -29,6 +29,8 @@
         ui = {
           enable = true;
         };
+
+        legacy_commands = false;
 
         workspaces = [
           {
