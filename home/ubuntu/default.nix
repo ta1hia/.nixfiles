@@ -3,7 +3,6 @@
 {
   imports = [
     ../common
-    # ./obsidian.nix
 
     inputs.sops-nix.homeManagerModules.sops
   ];
