@@ -10,6 +10,9 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
+    obsidian-nix.url = "github:nix-community/obsidian.nix";
+    obsidian-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -22,7 +25,17 @@
     system-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, nix-homebrew, nixvim, sops-nix, system-manager, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nix-darwin
+    , home-manager
+    , nix-homebrew
+    , nixvim
+    , sops-nix
+    , system-manager
+    , ...
+    }@inputs:
     {
       nixosConfigurations = {
         lolbox = nixpkgs.lib.nixosSystem {
