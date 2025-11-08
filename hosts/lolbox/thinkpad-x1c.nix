@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ lib, ... }:
 
 {
   hardware.cpu.intel.updateMicrocode = true;
@@ -12,6 +12,7 @@
     displayManager.sessionCommands = ''
       xrandr --output eDP-1 --scale 1.5x1.5
     '';
+    displayManager.lightdm.greeters.gtk.cursorTheme.size = 50;
   };
 
 
