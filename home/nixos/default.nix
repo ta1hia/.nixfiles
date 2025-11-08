@@ -8,7 +8,6 @@
 
     ./darkman.nix
     ./redshift.nix
-    ./obsidian.nix
   ];
 
   home.username = "tahia";

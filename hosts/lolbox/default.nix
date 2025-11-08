@@ -11,10 +11,9 @@
       ./hardware-configuration.nix
       ./thinkpad-x1c.nix
       ./sops.nix
-
-      ../../system/desktop.nix
-      ../../system/i3.nix
-      ../../system/mounts/nas-1.nix
+      ./desktop.nix
+      ./i3.nix
+      ./mounts/nas-1.nix
     ];
 
   nixpkgs.config.allowUnfree = true;
