@@ -124,7 +124,7 @@
       enable = true;
       settings = {
         options = {
-          mode = "buffers";
+          mode = "tabs";
           separator_style = "thin";
           show_buffer_close_icons = false;
           show_close_icon = false;
@@ -357,7 +357,32 @@
 
     plugins.treesitter = {
       enable = true;
-      settings.auto_install = true;
+
+      settings = {
+        auto_install = true;
+        highlight = {
+          enable = true;
+          additional_vim_regex_highlighting = false;
+        };
+
+        indent = {
+          enable = true;
+        };
+
+        ensure_installed = [
+          "go"
+          "python"
+          "javascript"
+          "typescript"
+          "html"
+          "css"
+          "json"
+          "nix"
+          "lua"
+          "vim"
+          "vimdoc"
+        ];
+      };
     };
 
     plugins.trouble = {
