@@ -105,6 +105,21 @@
       rustfmt
     ];
 
+    plugins.aerial = {
+      enable = true;
+      settings = {
+        open_automatic = false; # Opens only via keymap
+        layout = {
+          # Basic configuration to use a standard sidebar window
+          default_win_opts = {
+            relativenumber = true;
+          };
+        };
+        # Uses LSP data for accurate symbol parsing
+        backends = [ "lsp" "treesitter" ];
+      };
+    };
+
     plugins.bufferline = {
       enable = true;
       settings = {
@@ -120,7 +135,7 @@
             {
               filetype = "NvimTree";
               text_align = "left";
-              separator = true; # Displays a separator line
+              separator = true;
             }
           ];
 
@@ -345,6 +360,16 @@
       settings.auto_install = true;
     };
 
+    plugins.trouble = {
+      enable = true;
+      settings = {
+        mode = "lsp_document";
+        focus = true;
+        use_diagnostic_signs = true;
+        auto_open = false;
+      };
+    };
+
     plugins.web-devicons.enable = true;
 
     keymaps = [
@@ -461,6 +486,18 @@
         key = "<leader>gp";
         action = "<cmd>Gitsigns preview_hunk<cr>";
         options = { desc = "Preview Hunk"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>xx";
+        action = "<cmd>Trouble toggle diagnostics<cr>";
+        options = { desc = "Toggle Project Diagnostics"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>ca";
+        action = "<cmd>AerialToggle<cr>";
+        options = { desc = "Toggle Code Outline Sidebar"; };
       }
     ];
   };
