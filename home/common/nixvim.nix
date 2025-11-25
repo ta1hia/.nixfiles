@@ -105,6 +105,46 @@
       rustfmt
     ];
 
+    plugins.bufferline = {
+      enable = true;
+      settings = {
+        options = {
+          mode = "buffers";
+          separator_style = "thin";
+          show_buffer_close_icons = false;
+          show_close_icon = false;
+          color_icons = true;
+          modified_icon = "●";
+
+          offsets = [
+            {
+              filetype = "NvimTree";
+              text_align = "left";
+              separator = true; # Displays a separator line
+            }
+          ];
+
+          diagnostics = "nvim_lsp";
+          diagnostics_indicator = {
+            __raw = ''
+              function(count, level, diagnostics_dict, context)
+                local s = ""
+                for e, n in pairs(diagnostics_dict) do
+                  local sym = e == "error" and " !"
+                    or (e == "warning" and " ?" or "" )
+                  if(sym ~= "") then
+                    s = s .. " " .. n .. sym
+                  end
+                end
+                return s
+              end
+            '';
+          };
+
+        };
+      };
+    };
+
     plugins.copilot-vim = {
       enable = true;
       settings = {
@@ -243,17 +283,40 @@
       };
     };
 
+    plugins.gitsigns = {
+      enable = true;
+      settings = {
+        signs = {
+          add = { text = "│"; };
+          change = { text = "│"; };
+          delete = { text = "═"; };
+          topdelete = { text = "‾"; };
+          changedelete = { text = "~"; };
+        };
+        sign_priority = 6;
+        # current_line_blame = true;
+      };
+    };
+
     plugins.nvim-tree = {
       enable = true;
       settings = {
         disable_netrw = true;
         hijack_netrw = true;
         view = {
-          width = 22; # Set the default sidebar width
+          width = 22;
         };
         filters = {
           custom = [ "result" "*.swp" ];
         };
+
+        # leave tree open on new tabs
+        actions = {
+          open_file = {
+            quit_on_open = false;
+          };
+        };
+        open_on_tab = true;
       };
     };
 
@@ -348,8 +411,8 @@
       {
         mode = "n";
         key = "<leader>nn";
-        action = "<cmd>NvimTreeToggle<cr>";
-        options = { desc = "Toggle NvimTree File Explorer"; };
+        action = "<cmd>NvimTreeFindFileToggle<cr>";
+        options = { desc = "Toggle & Find Current File in Tree"; };
       }
       {
         mode = "n";
@@ -374,6 +437,30 @@
         key = "K";
         action = "<cmd>lua vim.lsp.buf.hover()<cr>";
         options = { desc = "show documentation"; };
+      }
+      {
+        mode = "n";
+        key = "]c";
+        action = "<cmd>Gitsigns next_hunk<cr>";
+        options = { desc = "Next Git Hunk"; };
+      }
+      {
+        mode = "n";
+        key = "[c";
+        action = "<cmd>Gitsigns prev_hunk<cr>";
+        options = { desc = "Previous Git Hunk"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>gs";
+        action = "<cmd>Gitsigns stage_hunk<cr>";
+        options = { desc = "Stage Hunk"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>gp";
+        action = "<cmd>Gitsigns preview_hunk<cr>";
+        options = { desc = "Preview Hunk"; };
       }
     ];
   };
