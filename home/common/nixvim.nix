@@ -243,6 +243,20 @@
       };
     };
 
+    plugins.nvim-tree = {
+      enable = true;
+      settings = {
+        disable_netrw = true;
+        hijack_netrw = true;
+        view = {
+          width = 22; # Set the default sidebar width
+        };
+        filters = {
+          custom = [ "result" "*.swp" ];
+        };
+      };
+    };
+
 
     # fuzzy-finder
     plugins.telescope = {
@@ -271,6 +285,30 @@
     plugins.web-devicons.enable = true;
 
     keymaps = [
+      {
+        mode = "n";
+        key = "<C-h>";
+        action = "<C-w>h";
+        options = { desc = "Window Left"; };
+      }
+      {
+        mode = "n";
+        key = "<C-l>";
+        action = "<C-w>l";
+        options = { desc = "Window Right"; };
+      }
+      {
+        mode = "n";
+        key = "<C-j>";
+        action = "<C-w>j";
+        options = { desc = "Window Down"; };
+      }
+      {
+        mode = "n";
+        key = "<C-k>";
+        action = "<C-w>k";
+        options = { desc = "Window Up"; };
+      }
       {
         mode = "n";
         key = "=";
@@ -306,6 +344,12 @@
         key = "<leader>ee";
         action = "<cmd>lua vim.cmd('e')<cr>";
         options = { desc = "unfortunate obsidian.nvim backlink error suppression hack"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>nn";
+        action = "<cmd>NvimTreeToggle<cr>";
+        options = { desc = "Toggle NvimTree File Explorer"; };
       }
       {
         mode = "n";
