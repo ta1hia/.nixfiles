@@ -30,30 +30,37 @@ lib.mkMerge [
             path = "~/docs/notes";
           }
         ];
-        note_id_func = ''
-          function(title)
-            local suffix = ""
-            if title ~= nil then
-              suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-            else
-              for _ = 1, 4 do
-                suffix = suffix .. string.char(math.random(65, 90))
+        note_id_func = {
+          __raw = ''
+            function(title)
+              local suffix = ""
+              if title ~= nil then
+                suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+              else
+                for _ = 1, 4 do
+                  suffix = suffix .. string.char(math.random(65, 90))
+                end
               end
+              return tostring(os.time()) .. "-" .. suffix
             end
-            return tostring(os.time()) .. "-" .. suffix
-          end
-        '';
-        note_path_func = ''
-          function(spec)
-            local path = spec.dir / tostring(spec.title)
-            return path:with_suffix(".md")
-          end
-        '';
-        follow_url_func = ''
-          function(url)
-            vim.fn.jobstart({"xdg-open", url})  -- linux
-          end
-        '';
+          '';
+        };
+
+        note_path_func = {
+          __raw = ''
+            function(spec)
+              local path = spec.dir / tostring(spec.title)
+              return path:with_suffix(".md")
+            end
+          '';
+        };
+        follow_url_func = {
+          __raw = ''
+            function(url)
+              vim.fn.jobstart({"xdg-open", url})  -- linux
+            end
+          '';
+        };
       };
     };
   })

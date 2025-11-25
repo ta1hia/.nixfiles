@@ -4,7 +4,7 @@
   imports = [
     ../common
 
-    inputs.sops-nix.homeManagerModules.sops
+    inputs.sops-nix.homeModules.sops
   ];
 
   home.username = "tahia";
