@@ -18,6 +18,9 @@
 
     nodejs_22
     yarn
+    awscli2
+    mongodb-tools
+    mongosh
   ];
 
   nixpkgs.config = {

@@ -17,6 +17,7 @@
     jq
     ripgrep
     tree
+    zip
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
