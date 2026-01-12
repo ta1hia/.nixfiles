@@ -180,6 +180,12 @@
           enabled = true;
           lsp_fallback = true;
         };
+        formatters = {
+          prettier_safe = {
+            command = "prettier";
+            args = [ "--stdin-filepath" "root_of_repo/dummy.md" "--parser" "markdown" ];
+          };
+        };
         formatters_by_ft = {
           nix = [ "nixpkgs_fmt" ];
           go = [ "gofmt" "goimports" ];
@@ -187,12 +193,11 @@
           javascriptreact = [ "prettier" ];
           html = [ "prettier" ];
           css = [ "prettier" ];
-          markdown = [ "prettier" ];
+          markdown = [ "prettier_safe" ];
           rust = [ "rustfmt" ];
         };
       };
     };
-
     plugins.fugitive.enable = true;
 
     # language servers
