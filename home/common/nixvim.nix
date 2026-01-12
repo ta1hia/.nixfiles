@@ -51,12 +51,14 @@
       local function fugitive_commit_and_push()
         if vim.fn.finddir('.git', '.;') ~= "" and vim.bo.buftype == "" then
           local filename = vim.fn.expand('%:t')
-          vim.cmd.Git('add -u')
-          vim.cmd.Git('commit -m "auto push notes in ' .. filename .. '"')
-          vim.cmd.Git('push')
+          local message = "auto push notes in " .. filename
+          local safe_message = vim.fn.shellescape(message)
+          vim.cmd('Git add -A')
+          pcall(vim.cmd, 'Git commit -m ' .. safe_message)
+          vim.cmd('Git push')
         end
       end
-      
+
       local function fugitive_pull_check()
         local target_path = vim.fn.resolve(vim.fn.expand('~/docs/notes'))
         local current_dir = vim.fn.resolve(vim.fn.getcwd()) 
