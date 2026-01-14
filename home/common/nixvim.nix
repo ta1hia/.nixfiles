@@ -107,6 +107,15 @@
       rustfmt
     ];
 
+    files."after/ftplugin/markdown.lua" = {
+      opts = {
+        tabstop = 2;
+        shiftwidth = 2;
+        softtabstop = 2;
+        expandtab = true;
+      };
+    };
+
     plugins.aerial = {
       enable = true;
       settings = {
