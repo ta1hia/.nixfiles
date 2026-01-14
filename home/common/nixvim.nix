@@ -47,7 +47,10 @@
       highlight LineNr ctermfg=240 guifg=#666666
     '';
 
+
     extraConfigLua = ''
+      -- GIT AUTO SYNC
+      -- auto sync for obs vault
       local function fugitive_commit_and_push()
         if vim.fn.finddir('.git', '.;') ~= "" and vim.bo.buftype == "" then
           local filename = vim.fn.expand('%:t')
@@ -73,14 +76,14 @@
       vim.api.nvim_create_autocmd({ 'VimEnter' }, {  
         group = augroup,
         pattern = '*',
-        callback = fugitive_pull_check, -- Corrected to use the unified pull function
+        callback = fugitive_pull_check,
         desc = 'auto git pull on neovim startup if in target dir'
       })
       
       vim.api.nvim_create_autocmd({ 'DirChanged' }, {
         group = augroup,
         pattern = '*', 
-        callback = fugitive_pull_check, -- Corrected to use the unified pull function
+        callback = fugitive_pull_check,
         desc = 'auto git pull on entering the notes dir'
       })
       
@@ -90,6 +93,43 @@
         callback = fugitive_commit_and_push,
         desc = 'auto git commit & push on file save in notes dir'
       })
+
+      -- GLOBAL DIAGNOSTIC FILTER
+      -- filter out specific error messages that marksman incorrectly flags in obs
+      local function filter_diagnostics(diagnostic)
+        local ignore_list = { 
+          "Link to non%-existent document", 
+          "Ambiguous link"                  
+        }
+
+        for _, pattern in ipairs(ignore_list) do
+          if string.match(diagnostic.message, pattern) then
+            return false
+          end
+        end
+        return true
+      end
+
+      -- overwrite the global handler that prints errors to the screen
+      -- and filter out the unwanted ones (obs id/marksman errors)
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+        
+        local client_id = ctx.client_id
+        local client = vim.lsp.get_client_by_id(client_id)
+        
+        if client and client.name == 'marksman' and result and result.diagnostics then
+          local filtered_diagnostics = {}
+          for _, d in ipairs(result.diagnostics) do
+            -- CHANGED HERE: Use 'filter_diagnostics' to match your existing function
+            if filter_diagnostics(d) then
+              table.insert(filtered_diagnostics, d)
+            end
+          end
+          result.diagnostics = filtered_diagnostics
+        end
+
+        vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+      end
     '';
 
     extraLuaPackages = luaPkgs: [ luaPkgs.magick ];
@@ -223,33 +263,9 @@
         cssls.enable = true;
         jsonls.enable = true;
         tailwindcss.enable = true;
-
-        marksman = {
-          # markdown
-          enable = true;
-          onAttach.override = true;
-          onAttach.function = ''
-            -- Supress specific marksman errors
-            -- TODO this only works after I run :e once
-            local ignore_patterns = { "Link to non%-existant document" }
-            local keep = function(d)
-            for _, pat in ipairs(ignore_patterns) do
-            if d.message:find(pat) then return false end
-            end
-            return true
-            end
-
-            -- Wrap future diagnostics
-            local og_handler = vim.lsp.handlers["textDocument/publishDiagnostics"]
-            vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-            if result then result.diagnostics = vim.tbl_filter(keep, result.diagnostics or {}) end
-            og_handler(err, result, ctx, cfg)
-            end
-          '';
-        };
+        marksman.enable = true;
 
         rust_analyzer = {
-          # rust
           enable = true;
           installRustc = true;
           installCargo = true;
