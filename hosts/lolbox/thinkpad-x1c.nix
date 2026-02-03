@@ -42,6 +42,14 @@
       accelSpeed = "0.25";
       clickMethod = "clickfinger";
     };
+
+    mouse = {
+      scrollMethod = "button";
+      scrollButton = 2;
+      horizontalScrolling = false;
+      accelProfile = "flat";
+    };
+
   };
 
   services.tlp.enable = true;
