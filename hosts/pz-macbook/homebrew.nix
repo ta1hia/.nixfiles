@@ -2,11 +2,13 @@
 {
   homebrew = {
     # I had to install homebrew outside of nix first
+    # Grabbing via brew directly: firefox, obsidian
+
     enable = true;
 
     taps = [ ];
     brews = [ "cowsay" ];
-    casks = [ "firefox" "obsidian" "nikitabobko/tap/aerospace" "spotify" ];
+    casks = [ "nikitabobko/tap/aerospace" "spotify" ];
 
   };
 }

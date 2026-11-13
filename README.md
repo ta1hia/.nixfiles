@@ -26,20 +26,22 @@ Clone this repository to `~/.nixfiles`. Then:
 sudo nixos-rebuild switch --flake .#lolbox
 ```
 
-## First-Time Setup (macOS)
+### First-Time Setup (macOS)
 
 Install [Determinate Nix](https://docs.determinate.systems/determinate-nix/) and clone this repo to `~/.nixfiles`.
 
-Run the following command to build and activate the nix-darwin system profile and fix directory permissions from using sudo. sudo is necessary for system-level changes.
+Then fix homebrew permissions (since it can't run as root but nix needs sudo) and update it if needed.
 
 ```
+# sudo chown -R tahia:staff /Users/tahia/.local
+# sudo chown -R tahia:admin /opt/homebrew
+# /opt/homebrew/bin/brew update
 sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- switch --flake .#pz-macbook
-sudo chown -R tahia:staff /Users/tahia/.local
 ```
 
-Once the command finishes, `darwin-rebuild` will be available in your shell.
+Once the command finishes, `darwin-rebuild` will be available in the shell.
 
-## First-Time Setup (ubuntu with standalone home-manager)
+### First-Time Setup (ubuntu with standalone home-manager)
 
 ```
 curl -L https://nixos.org/nix/install | sh -s -- --daemon
