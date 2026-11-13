@@ -7,6 +7,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    mac-app-util.url = "github:hraban/mac-app-util";
+
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -63,6 +65,9 @@
             nix-homebrew.darwinModules.nix-homebrew
             home-manager.darwinModules.home-manager
             {
+              home-manager.sharedModules = [
+                inputs.mac-app-util.homeManagerModules.default
+              ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
