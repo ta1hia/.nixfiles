@@ -21,7 +21,6 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     system-manager.url = "github:numtide/system-manager";
-    system-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -85,12 +84,30 @@
         ];
       };
 
-      # TODO combine system-manager and hm. I was having trouble with this earlier
-      systemConfigs.devbox = system-manager.lib.makeSystemConfig {
+      homeConfigurations.ubuntu = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = { inherit inputs; };
         modules = [
-          ./hosts/devbox
+          ./home/ubuntu
         ];
       };
+
+      systemConfigs = {
+        cephanie = system-manager.lib.makeSystemConfig {
+          modules = [
+            { nixpkgs.hostPlatform = "x86_64-linux"; }
+            ./hosts/devbox
+          ];
+        };
+      
+        devbox = system-manager.lib.makeSystemConfig {
+          modules = [
+            { nixpkgs.hostPlatform = "aarch64-linux"; }
+            ./hosts/devbox
+          ];
+        };
+      };
+
     };
 }
 
