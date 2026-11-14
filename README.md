@@ -41,13 +41,24 @@ sudo nix --extra-experimental-features "nix-command flakes" run nix-darwin -- sw
 
 Once the command finishes, `darwin-rebuild` will be available in the shell.
 
-### First-Time Setup (ubuntu with standalone home-manager)
+### First-Time Setup (ubuntu)
 
 ```
 curl -L https://nixos.org/nix/install | sh -s -- --daemon
-nix-shell -p nix-info --run "nix-info -m"
-echo "experimental-features = nix-command flakes\nbuild-users-group = nixbld" | sudo tee -a /etc/nix/nix.conf
-nix --extra-experimental-features "nix-command flakes" run home-manager -- switch --flake ~/.nixfiles#pz-ubuntu
+
+# now source profile so 'nix' is available and
+# enable experimental features 
+sudo tee -a /etc/nix/nix.conf <<EOF
+experimental-features = nix-command flakes
+build-users-group = nixbld
+EOF
+
+# system-level configuration via system-manager
+sudo -H env "PATH=$PATH" nix run 'github:numtide/system-manager' -- switch --flake ~/.nixfiles#cephanie
+nix run home-manager -- switch --flake ~/.nixfiles#ubuntu
+
+# set zsh
+sudo usermod -s "$HOME/.nix-profile/bin/zsh" "$USER"
 ```
 
 ### Updating Your Configuration
@@ -58,6 +69,6 @@ NixOS: `sudo nixos-rebuild switch --flake .#lolbox`
 
 darwin: `sudo darwin-rebuild switch --flake .#pz-macbook`
 
-ubuntu: `home-manager switch --flake ~/.nixfiles#pz-ubuntu`
+ubuntu: `home-manager switch --flake ~/.nixfiles#ubuntu`
 
 This builds a new system generation and creates a symlink to it, including the activation step for home-manager since it's configured as a module.

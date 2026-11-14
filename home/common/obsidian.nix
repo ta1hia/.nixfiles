@@ -1,5 +1,11 @@
 { pkgs, lib, ... }:
 
+let
+  homeDir = builtins.getEnv "HOME";
+  notesPath = if homeDir != "" then "${homeDir}/docs/notes" else "/home/tahia/docs/notes";
+  hasNotesDir = builtins.pathExists notesPath;
+in
+
 lib.mkMerge [
   (lib.mkIf pkgs.stdenv.isLinux {
     # 1. Installs the Obsidian application
@@ -17,7 +23,7 @@ lib.mkMerge [
     };
 
     programs.nixvim.plugins.obsidian = {
-      enable = true;
+      enable = hasNotesDir;
       settings = {
         legacy_commands = false;
         ui = {
