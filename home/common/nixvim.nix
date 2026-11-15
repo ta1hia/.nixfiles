@@ -145,6 +145,8 @@
       nodePackages."@tailwindcss/language-server"
       gotools
       rustfmt
+      clang
+      clang-tools
     ];
 
     files."after/ftplugin/markdown.lua" = {
@@ -153,6 +155,8 @@
         shiftwidth = 2;
         softtabstop = 2;
         expandtab = true;
+        modeline = true;
+        modelines = 5;
       };
     };
 
@@ -225,10 +229,21 @@
     plugins.conform-nvim = {
       enable = true;
       settings = {
-        format_on_save = {
-          enabled = true;
-          lsp_fallback = true;
-        };
+        # ignoring cpp format_on_save for now
+        format_on_save.__raw = ''
+          function(bufnr)
+            local ignore_filetypes = { "c", "cpp" }
+            if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+              return
+            end
+            return { timeout_ms = 500, lsp_fallback = true }
+          end
+        '';
+        # format_on_save = {
+        #   enabled = true;
+        #   timeout_ms = 500;
+        #   lsp_fallback = true;
+        # };
         formatters = {
           prettier_safe = {
             command = "prettier";
@@ -236,6 +251,8 @@
           };
         };
         formatters_by_ft = {
+          cpp = [ "clang-format" ];
+          c = [ "clang-format" ];
           nix = [ "nixpkgs_fmt" ];
           go = [ "gofmt" "goimports" ];
           javascript = [ "prettier" ];
@@ -254,6 +271,19 @@
       enable = true;
       servers = {
         bashls.enable = true; # bash
+        clangd = {
+          enable = true;
+          extraOptions = {
+            cmd = [
+              "clangd"
+              "--background-index"
+              "--clang-tidy"
+              "--header-insertion=iwyu"
+              "--completion-style=detailed"
+              "--function-arg-placeholders=1"
+            ];
+          };
+        };
         gopls.enable = true; # go
         nixd.enable = true; # nix
         pyright.enable = true; # python
@@ -398,9 +428,15 @@
 
         indent = {
           enable = true;
+          disable = [ "c" "cpp" ];
         };
 
         ensure_installed = [
+          "c"
+          "cpp"
+          "cmake"
+          "ninja"
+          "make"
           "go"
           "python"
           "javascript"
@@ -554,6 +590,15 @@
         key = "<leader>ca";
         action = "<cmd>AerialToggle<cr>";
         options = { desc = "Toggle Code Outline Sidebar"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>ch";
+        action = "<cmd>ClangdSwitchSourceHeader<CR>";
+        options = {
+          silent = true;
+          desc = "Switch between C++ source and header";
+        };
       }
     ];
   };
