@@ -10,6 +10,8 @@
     brews = [ "cowsay" ];
     casks = [ "nikitabobko/tap/aerospace" "spotify" ];
 
+    # TODO: https://nikitabobko.github.io/AeroSpace/goodies#i3-like-config to ~/.aerospace.toml
+
   };
 }
 

@@ -1,9 +1,17 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ../common
   ];
+
+  home.packages = with pkgs; [
+    go
+  ];
+
+  programs.gh = {
+    enable = true;
+  };
 
   programs.zsh = {
     initContent = ''
