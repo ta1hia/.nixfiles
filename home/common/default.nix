@@ -20,6 +20,21 @@
     zip
   ];
 
+  programs.git = {
+    enable = true;
+    userName = "Tahia Khan";
+    userEmail = "tahia.khan@gmail.com";
+
+    # ignores = [
+    #   ".DS_Store"
+    #   "Thumbs.db"
+    #   "*.swp"
+    #   "*.swo"
+    #   ".netrwhist"
+    #   "*.log"
+    # ];
+  };
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.05";
 }
